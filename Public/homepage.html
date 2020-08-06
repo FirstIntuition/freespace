@@ -16,23 +16,19 @@
     <h1>FreeSpace.</h1>
   </div>
         <div class="row container-fluid">
-          <div class="col-md-6 col-lg-3 col-sm-6 col-xs-6 justify">
-            <button type="button"class="yearbtn btn-lg" id="FEbtn" name="button">FE</button>
-          </div>
-          <div class="col-md-6 col-lg-3 col-sm-6 col-xs-6">
-            <button type="button"class="yearbtn btn-lg" id="SEbtn" name="button">SE</button>
-          </div>
-          <div class="col-md-6 col-lg-3 col-sm-6 col-xs-6">
-              <button type="button"class="yearbtn btn-lg" id="TEbtn" name="button">TE</button>
-          </div>
-          <div class="col-md-6 col-lg-3 col-sm-6 col-xs-6">
-            <button type="button"class="yearbtn btn-lg" id="BEbtn" name="button">BE</button>
-          </div>
+            <label class="btn btn-lg radiobtn">
+              <input type="radio" name="options" id="Topic" autocomplete="off" checked> Search By Topic
+            </label>
+            <label class="btn btn-lg radiobtn">
+            <input type="radio" name="options" id="Subject" autocomplete="off" checked> Search By Subject
+            </label>
+
         </div>
 
 
-  <div class="homepagesearchbar">
-    <input id="searchBar" type="text" class="form-control" placeholder="Search..." autocomplete="off">
+  <div class="homepagesearchbar container-fluid">
+    <input id="searchBar" type="text" class="form-control container-fluid" placeholder="Search..." autocomplete="off">
+    <button type="button" id="addtag" name="addTag">Add Tag</button>
   </div>
  <button class="btn btn-dark btn-lg" id="searchbutton"type="button" name="button">Search</button>
  <!-- JQuery -->

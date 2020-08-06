@@ -17,16 +17,16 @@ $("#searchbutton").on("click",function(){
 });
 //AutoComplete
 $(document).ready(function(){
-  // Defining the local dataset
-  var tagHelper = ['2020', '2019', '2018', '2017', '2016', '2015', 'Maths', 'Communication Skills', 'DataBase Management Systems', 'Computer Architecture and Organization', 'Abstract Data Structures', 'Physics', 'Chemistry', 'EVS'];
-  
+  // Defining the local dataset   //Defined ogdata because taghelper gets converted into object and data array was needed to validate search result
+  var ogdata = ["2020", "2019", "2018", "2017", "2016", "2015", "Maths", "Communication Skills", "DataBase Management Systems", "Computer Architecture and Organization", "Abstract Data Structures", "Physics", "Chemistry", "EVS"];
+  var tagHelper = ["2020", "2019", "2018", "2017", "2016", "2015", "Maths", "Communication Skills", "DataBase Management Systems", "Computer Architecture and Organization", "Abstract Data Structures", "Physics", "Chemistry", "EVS"];
   // Constructing the suggestion engine
   var tagHelper = new Bloodhound({
       datumTokenizer: Bloodhound.tokenizers.whitespace,
       queryTokenizer: Bloodhound.tokenizers.whitespace,
       local: tagHelper
   });
-  
+
   // Initializing the typeahead
   $('#searchBar').typeahead({
       hint: true,
@@ -37,4 +37,17 @@ $(document).ready(function(){
       name: 'tagHelper',
       source: tagHelper
   });
+
+  //show usergenerated array
+
+  var userarray=[];
+  $("#addtag").on("click",function(){
+    // alert(typeof(tagHelper));
+      var searchresult=$("#searchBar").val();
+      if(ogdata.indexOf(searchresult)>=0){
+      userarray.push(searchresult);}
+      $("#searchBar").val('');
+    console.log(userarray);
+  });
+
 });
