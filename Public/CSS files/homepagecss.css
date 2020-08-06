@@ -1,0 +1,66 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background-image: url('homepagebg.png');
+  background-repeat: no-repeat;
+  text-align: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+h1 {
+  padding-top: 5%;
+  font-size: 15rem;
+  color: white;
+  margin-left: 5%;
+
+}
+.col-md-6,.col-sm-6,.col-xs-6
+{
+  padding: 5px;
+}
+.col-lg-3{
+  padding:0px;
+}
+
+.homepagesearchbar {
+  width: 50%;
+  padding-top: 5%;
+  margin-left: 25%;
+}
+
+.form-control {
+  /* Search Bar Height*/
+  height: 40px;
+}
+
+#searchbutton {
+  margin-top: 5%;
+  /* Search Button*/
+}
+#searchbutton:hover{
+  color: white;
+  background-color: #617be3;
+}
+.yearbtn {
+
+  /* Year buttons pressed(FE,SE,TE,BE) */
+  margin-left: 3px;
+  width: 100px;
+  border-width: 0;
+    margin-bottom:10px;
+}
+.row{
+  width:60%;
+  margin-left: 20%;
+  margin-top: 3%;
+}
+.yearbtn:hover {
+  /* Year buttons hover (FE,SE,TE,BE) */
+  color: white;
+  background-color: #617be3;
+}
+
+.yearbtnpressed {
+  color: white;
+  /* Year buttons pressed (FE,SE,TE,BE) */
+  background-color: #617be3;
+}

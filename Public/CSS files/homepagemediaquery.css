@@ -1,0 +1,33 @@
+@media (max-width:992px) {
+h1{
+  padding-top:5%;
+  font-size: 8rem;
+  color: white;
+  text-align: center;
+}
+.yearbtn{
+  width:70px;
+  font-size: 20px;
+  margin-bottom:10px;
+}
+.row{
+  width: 100%;
+  margin-left: 0;
+}
+@media (min-width:992px and max-width:1200px) {
+h1{
+  padding-top:5%;
+  font-size: 8rem;
+  color: white;
+  text-align: center;
+}
+.yearbtn{
+  width:70px;
+  font-size: 20px;
+  margin-bottom:10px;
+}
+.row{
+  width: 100%;
+  margin-left: 0;
+}
+}
