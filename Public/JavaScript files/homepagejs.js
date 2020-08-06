@@ -6,10 +6,10 @@ var selectedTags = {
   topics: []
 };
 
-function snackbarFunction() {
+function snackbarFunction(condition) {
   // Get the snackbar DIV
   var x = document.getElementById("snackbar");
-
+  x.innerHTML=condition;
   // Add the "show" class to DIV
   x.className = "show";
 
@@ -167,13 +167,54 @@ $(document).ready(function(){
           selectedTags[getCat(searchresult)].push(searchresult);
         }
         else 
-          snackbarFunction();
+          snackbarFunction("Already Selected");
         console.log(selectedTags);
         $("#searchBar").val('');
       }
       else {
-        snackbarFunction();
+
+        snackbarFunction("Invalid Tag");
       }      
   });
+
+
+
+  	//Making Form 
+  	let mainForm=document.createElement("form");
+
+	let formMake=function(name){
+		console.log(name);
+		selectedTags[name].forEach(function(item){
+			console.log(item);
+			let input=document.createElement("input");
+			input.type="hidden";
+			input.name=name;
+			console.log(input.name);
+			input.value=item;
+			mainForm.append(input);
+		});
+	}
+
+	const search=document.getElementById("searchbutton");
+
+	search.addEventListener("click",function(){
+		console.log(selectedTags);
+
+		//setting action to search for the form with POST request
+		mainForm.action="/search";
+		mainForm.method="POST";
+
+		//calling function to append names of input in the form
+		formMake("year");
+		formMake("collegeYears");
+		formMake("examType");
+		formMake("subjects");
+		formMake("topics");
+
+		document.getElementsByTagName('body')[0].appendChild(mainForm);
+		mainForm.submit();
+
+	});
+
 
 });
