@@ -125,7 +125,7 @@ app.post("/search", function(req, res){
     host: "localhost",
     user: "root",
     password: "",
-    database: "dspace"
+    database: "freespace"
   });
 
   con.connect(function(err) {
