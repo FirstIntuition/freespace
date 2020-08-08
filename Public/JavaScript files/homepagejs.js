@@ -35,7 +35,7 @@ function getCat(tag) {
   }
 }
 
-function removeTag(tag) {
+function removeTag(tag, top) {
   var index;
   if(/^\d+$/.test(tag)) {
     index = selectedTags.year.indexOf(tag);
@@ -49,7 +49,7 @@ function removeTag(tag) {
     index = selectedTags.examType.indexOf(tag);
     selectedTags.examType.splice(index, 1);
   }
-  else if(document.getElementById("Topic").checked) {
+  else if(top) {
     index = selectedTags.topics.indexOf(tag);
     selectedTags.topics.splice(index, 1);
   }
@@ -142,11 +142,14 @@ $(document).ready(function(){
   });
   // -----------------------------------------------------
   $(".tagarea").on('click','.cross',function() {
-     $(this).parent().remove();
      var searchtoremove=$(this).parent().text();
      searchtoremove=searchtoremove.slice(0, -1);
+     $(this).parent().remove();
      // alert(searchtoremove);
-     removeTag(searchtoremove);
+     if(availableTop.indexOf(searchtoremove) >= 0)
+      removeTag(searchtoremove, 1);
+     else
+      removeTag(searchtoremove, 0);
 });
   // -----------------------------------------------------
   $("#addtag").on("click",function(){
@@ -172,8 +175,7 @@ $(document).ready(function(){
         console.log(isTagPresent(searchresult));
         if(!isTagPresent(searchresult)) {
           var areaa=$(".tagarea");
-          var namee='"'+searchresult+'"';
-          areaa.append('<div class="tagmake ">'+searchresult+'<button type ="button" value='+namee+' class="cross">x</button>'+'</div>');
+          areaa.append('<div class="tagmake ">'+searchresult+'<button type ="button" class="cross">x</button>'+'</div>');
           console.log(getCat(searchresult));
           console.log(selectedTags[getCat(searchresult)]);
           selectedTags[getCat(searchresult)].push(searchresult);
