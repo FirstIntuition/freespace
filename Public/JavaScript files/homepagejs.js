@@ -6,10 +6,10 @@ var selectedTags = {
   topics: []
 };
 
-function snackbarFunction() {
+function snackbarFunction(condition) {
   // Get the snackbar DIV
   var x = document.getElementById("snackbar");
-
+  x.innerHTML=condition;
   // Add the "show" class to DIV
   x.className = "show";
 
@@ -140,10 +140,19 @@ $(document).ready(function(){
     tagHelper.local = availableSub;
     tagHelper.initialize(true);
   });
-
+  // -----------------------------------------------------
+  $(".tagarea").on('click','.cross',function() {
+     $(this).parent().remove();
+     var searchtoremove=$(this).parent().text();
+     searchtoremove=searchtoremove.slice(0, -1);
+     // alert(searchtoremove);
+     removeTag(searchtoremove);
+});
+  // -----------------------------------------------------
   $("#addtag").on("click",function(){
     // alert(typeof(tagHelper));
       var searchresult=$("#searchBar").val();
+
       var resultCat = getCat(searchresult);
       var resultvalid = 0;
       if(resultCat == "year" || resultCat == "collegeYears" || resultCat == "examType") {
@@ -162,18 +171,59 @@ $(document).ready(function(){
       if(resultvalid) {
         console.log(isTagPresent(searchresult));
         if(!isTagPresent(searchresult)) {
+          var areaa=$(".tagarea");
+          var namee='"'+searchresult+'"';
+          areaa.append('<div class="tagmake ">'+searchresult+'<button type ="button" value='+namee+' class="cross">x</button>'+'</div>');
           console.log(getCat(searchresult));
           console.log(selectedTags[getCat(searchresult)]);
           selectedTags[getCat(searchresult)].push(searchresult);
         }
-        else 
-          snackbarFunction();
+        else
+          snackbarFunction("Already Selected");
         console.log(selectedTags);
         $("#searchBar").val('');
       }
       else {
-        snackbarFunction();
-      }      
+
+        snackbarFunction("Invalid Tag");
+      }
   });
+
+  	//Making Form
+  	let mainForm=document.createElement("form");
+
+	let formMake=function(name){
+		console.log(name);
+		selectedTags[name].forEach(function(item){
+			console.log(item);
+			let input=document.createElement("input");
+			input.type="hidden";
+			input.name=name;
+			console.log(input.name);
+			input.value=item;
+			mainForm.append(input);
+		});
+	}
+
+	const search=document.getElementById("searchbutton");
+
+	search.addEventListener("click",function(){
+		console.log(selectedTags);
+
+		//setting action to search for the form with POST request
+		mainForm.action="/search";
+		mainForm.method="POST";
+
+		//calling function to append names of input in the form
+		formMake("year");
+		formMake("collegeYears");
+		formMake("examType");
+		formMake("subjects");
+		formMake("topics");
+
+		document.getElementsByTagName('body')[0].appendChild(mainForm);
+		mainForm.submit();
+
+	});
 
 });
