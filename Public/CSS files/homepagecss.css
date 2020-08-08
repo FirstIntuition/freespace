@@ -8,10 +8,13 @@ body {
 }
 h1 {
   padding-top: 5%;
-  font-size: 15rem;
+  font-size: 10rem;
   color: white;
   margin-left: 5%;
 
+}
+#addtag{
+  border: 0;
 }
 .col-md-6,.col-sm-6,.col-xs-6
 {
@@ -54,6 +57,7 @@ h1 {
   width:60%;
   margin-left: 20%;
   margin-top: 3%;
+  padding-left: 14%;
 }
 .yearbtn:hover {
   /* Year buttons hover (FE,SE,TE,BE) */
@@ -86,7 +90,34 @@ h1 {
 .tt-hint {
   color: #999;
 }
-
+/* ----------------------------------------------------- */
+.tagarea{
+  margin-top:10px;
+  width: 60%;
+  height: 110px;
+  /* border: 2px Solid; */
+  position: relative;
+  left:20%;
+}
+.tagmake{
+  display: inline-block;
+  padding: 5px;
+  margin-left: 2%;
+  float: left;
+  border-radius: 10px;
+  margin-bottom: 2px;
+  background-color:#c3aed6;
+  color:white;
+text-align: ;
+}
+.cross{
+  border:0;
+  margin-left: 6px;
+  border-radius: 5px;
+  background-color: #8675a9;
+  color: white;
+}
+/* --------------------------------------------------------- */
 .tt-menu {    /* used to be tt-dropdown-menu in older versions */
   width: 422px;
   margin-top: 4px;

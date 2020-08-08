@@ -140,10 +140,19 @@ $(document).ready(function(){
     tagHelper.local = availableSub;
     tagHelper.initialize(true);
   });
-
+  // -----------------------------------------------------
+  $(".tagarea").on('click','.cross',function() {
+     $(this).parent().remove();
+     var searchtoremove=$(this).parent().text();
+     searchtoremove=searchtoremove.slice(0, -1);
+     // alert(searchtoremove);
+     removeTag(searchtoremove);
+});
+  // -----------------------------------------------------
   $("#addtag").on("click",function(){
     // alert(typeof(tagHelper));
       var searchresult=$("#searchBar").val();
+
       var resultCat = getCat(searchresult);
       var resultvalid = 0;
       if(resultCat == "year" || resultCat == "collegeYears" || resultCat == "examType") {
@@ -162,11 +171,14 @@ $(document).ready(function(){
       if(resultvalid) {
         console.log(isTagPresent(searchresult));
         if(!isTagPresent(searchresult)) {
+          var areaa=$(".tagarea");
+          var namee='"'+searchresult+'"';
+          areaa.append('<div class="tagmake ">'+searchresult+'<button type ="button" value='+namee+' class="cross">x</button>'+'</div>');
           console.log(getCat(searchresult));
           console.log(selectedTags[getCat(searchresult)]);
           selectedTags[getCat(searchresult)].push(searchresult);
         }
-        else 
+        else
           snackbarFunction("Already Selected");
         console.log(selectedTags);
         $("#searchBar").val('');
@@ -174,12 +186,10 @@ $(document).ready(function(){
       else {
 
         snackbarFunction("Invalid Tag");
-      }      
+      }
   });
 
-
-
-  	//Making Form 
+  	//Making Form
   	let mainForm=document.createElement("form");
 
 	let formMake=function(name){
@@ -215,6 +225,5 @@ $(document).ready(function(){
 		mainForm.submit();
 
 	});
-
 
 });
