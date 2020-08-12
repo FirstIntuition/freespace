@@ -119,7 +119,7 @@ app.post("/search", function(req, res){
   }else {
     query += ' where';
   }
-  query += ' documents.doc_id=topics.doc_id order by documents.doc_id desc';
+  query += ' documents.doc_id=topics.doc_id group by documents.doc_id order by documents.doc_id desc';
   res.send(query);
   var con = mysql.createConnection({
     host: "localhost",
