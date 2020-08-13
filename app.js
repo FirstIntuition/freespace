@@ -12,104 +12,107 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 app.get("/", function(req, res){
   res.sendFile(path.join(__dirname,"./public","/homepage.html"));
-});
+})
 
+app.use(bodyParser.json());
 app.post("/search", function(req, res){
+  // console.log(typeofreq.body);
+  // console.log(typeof obj.subjects);
   console.log(req.body);
-  // console.log(typeof req.body.subjects);
+  var obj=req.body;
   var query='select * from documents, topics';
   var entered = false;
-  if (typeof req.body.year != 'undefined') {
+  if (typeof obj.year != 'undefined') {
     if (!entered) {
       query += ' where (';
     }else {
       query += ' and (';
     }
     entered=true;
-    if (typeof req.body.year == 'string') {
-      query += "doc_date_asked = '"+req.body.year+"'";
+    if (typeof obj.year == 'string') {
+      query += "doc_date_asked = '"+obj.year+"'";
     } else {
-      for (var i = 0; i < req.body.year.length; i++) {
+      for (var i = 0; i < obj.year.length; i++) {
         if (i) {
           query += ' or ';
         }
-        query +=  "doc_date_asked = '" + req.body.year[i] + "'";
+        query +=  "doc_date_asked = '" + obj.year[i] + "'";
       }
     }
     query += ')';
   }
-  if (typeof req.body.collegeYears != 'undefined') {
+  if (typeof obj.collegeYears != 'undefined') {
     if (!entered) {
       query += ' where (';
     }else {
       query += ' and (';
     }
     entered=true;
-    if (typeof req.body.collegeYears == 'string') {
-      query += "doc_year = '"+req.body.collegeYears+"'";
+    if (typeof obj.collegeYears == 'string') {
+      query += "doc_year = '"+obj.collegeYears+"'";
     } else {
-      for (var i = 0; i < req.body.collegeYears.length; i++) {
+      for (var i = 0; i < obj.collegeYears.length; i++) {
         if (i) {
           query += ' or ';
         }
-        query +=  "doc_year = '" + req.body.collegeYears[i] + "'";
+        query +=  "doc_year = '" + obj.collegeYears[i] + "'";
       }
     }
     query += ')';
   }
-  if (typeof req.body.examType != 'undefined') {
+  if (typeof obj.examType != 'undefined') {
     if (!entered) {
       query += ' where (';
     }else {
       query += ' and (';
     }
     entered=true;
-    if (typeof req.body.examType == 'string') {
-      query += "doc_exam = '"+req.body.examType+"'";
+    if (typeof obj.examType == 'string') {
+      query += "doc_exam = '"+obj.examType+"'";
     } else {
-      for (var i = 0; i < req.body.examType.length; i++) {
+      for (var i = 0; i < obj.examType.length; i++) {
         if (i) {
           query += ' or ';
         }
-        query +=  "doc_exam = '" + req.body.examType[i] + "'";
+        query +=  "doc_exam = '" + obj.examType[i] + "'";
       }
     }
     query += ')';
   }
-  if (typeof req.body.topics != 'undefined') {
+  if (typeof obj.topics != 'undefined') {
     if (!entered) {
       query += ' where (';
     }else {
       query += ' and (';
     }
     entered=true;
-    if (typeof req.body.topics == 'string') {
-      query += "topic = '"+req.body.topics+"'";
+    if (typeof obj.topics == 'string') {
+      query += "topic = '"+obj.topics+"'";
     } else {
-      for (var i = 0; i < req.body.topics.length; i++) {
+      for (var i = 0; i < obj.topics.length; i++) {
         if (i) {
           query += ' or ';
         }
-        query +=  "topic = '" + req.body.topics[i] + "'";
+        query +=  "topic = '" + obj.topics[i] + "'";
       }
     }
     query += ')';
   }
-  if (typeof req.body.subjects != 'undefined') {
+  if (typeof obj.subjects != 'undefined') {
     if (!entered) {
       query += ' where (';
     }else {
       query += ' and (';
     }
     entered=true;
-    if (typeof req.body.subjects == 'string') {
-      query += "doc_subject = '"+req.body.subjects+"'";
+    if (typeof obj.subjects == 'string') {
+      query += "doc_subject = '"+obj.subjects+"'";
     } else {
-      for (var i = 0; i < req.body.subjects.length; i++) {
+      for (var i = 0; i < obj.subjects.length; i++) {
         if (i) {
           query += ' or ';
         }
-        query +=  "doc_subject = '" + req.body.subjects[i] + "'";
+        query +=  "doc_subject = '" + obj.subjects[i] + "'";
       }
     }
     query += ')';

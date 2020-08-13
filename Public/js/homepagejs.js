@@ -192,40 +192,58 @@ $(document).ready(function(){
   });
 
   	//Making Form
-  	let mainForm=document.createElement("form");
+  // 	let mainForm=document.createElement("form");
+  //
+	// let formMake=function(name){
+	// 	console.log(name);
+	// 	selectedTags[name].forEach(function(item){
+	// 		console.log(item);
+	// 		let input=document.createElement("input");
+	// 		input.type="hidden";
+	// 		input.name=name;
+	// 		console.log(input.name);
+	// 		input.value=item;
+	// 		mainForm.append(input);
+	// 	});
+	// }
+  //
+	// const search=document.getElementById("searchbutton");
+  //
+	// search.addEventListener("click",function(){
+	// 	console.log(selectedTags);
+  //
+	// 	//setting action to search for the form with POST request
+	// 	mainForm.action="/search";
+	// 	mainForm.method="POST";
+  //
+	// 	//calling function to append names of input in the form
+	// 	formMake("year");
+	// 	formMake("collegeYears");
+	// 	formMake("examType");
+	// 	formMake("subjects");
+	// 	formMake("topics");
+  //
+	// 	document.getElementsByTagName('body')[0].appendChild(mainForm);
+	// 	mainForm.submit();
 
-	let formMake=function(name){
-		console.log(name);
-		selectedTags[name].forEach(function(item){
-			console.log(item);
-			let input=document.createElement("input");
-			input.type="hidden";
-			input.name=name;
-			console.log(input.name);
-			input.value=item;
-			mainForm.append(input);
-		});
-	}
-
-	const search=document.getElementById("searchbutton");
-
-	search.addEventListener("click",function(){
-		console.log(selectedTags);
-
-		//setting action to search for the form with POST request
-		mainForm.action="/search";
-		mainForm.method="POST";
-
-		//calling function to append names of input in the form
-		formMake("year");
-		formMake("collegeYears");
-		formMake("examType");
-		formMake("subjects");
-		formMake("topics");
-
-		document.getElementsByTagName('body')[0].appendChild(mainForm);
-		mainForm.submit();
-
-	});
+    $("#searchbutton").on("click",function(){
+      var tagsjson= JSON.stringify(selectedTags);
+      console.log(tagsjson);
+      var parsed=JSON.parse(tagsjson);
+      $.ajax({
+        type: "POST",
+        url:"/search",
+        data:tagsjson,
+        contentType: "application/json",
+        dataType:"text",
+        success: function(result){
+          console.log("passed!");
+          console.log(result);
+        },
+        error: function() {
+          console.log("failed!");
+      }
+      });
+    });
 
 });
