@@ -8,13 +8,17 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/homepagecss.css">
-  <link rel="stylesheet" href="css/homepagemediaquery.css">
+  <link rel="stylesheet" href="./css/homepagecss.css">
+  <link rel="stylesheet" href="./css/homepagemediaquery.css">
+  <style>
+    
+
+  </style>
 
 </head>
 
 <body>
-  <div class="container-fluid">
+  <div class="headBody container-fluid">
     <h1>FreeSpace.</h1>
     <div class="row container-fluid">
         <label class="btn btn-lg radiobtn">
@@ -25,26 +29,55 @@
         </label>
 
     </div>
-  </div>
+
+     
+
+  <div class="homepagesearchbar container-fluid" id="fixedDiv">
+     
+     
+      
+     
+        <input id="searchBar" type="text" class="form-control container-fluid" placeholder="Search..." autocomplete="off">
+        <button type="button" id="addtag" name="addTag">Add Tag</button>
+        <button class="btn btn-dark btn-lg" id="searchbutton"type="button" name="button">Search</button>
+      </div>
+       
+      
+      
+  
 
 
 
-  <div class="homepagesearchbar container-fluid">
-    <input id="searchBar" type="text" class="form-control container-fluid" placeholder="Search..." autocomplete="off">
-    <button type="button" id="addtag" name="addTag">Add Tag</button>
+   
+  
+  <div class="tagarea clearfix" id="tag">
   </div>
-  <div class="tagarea clearfix">
-  </div>
- <button class="btn btn-dark btn-lg" id="searchbutton"type="button" name="button">Search</button>
+
+</div>
+
+
+
+<div class="container-fluid"  id="dataBody" style="padding-left: 9%;" >
+
+  
+
+
+</div>
 
  <!-- JQuery -->
 
  <!-- Search Bar autocomplete plugin -->
  <script src="http://twitter.github.io/typeahead.js/releases/latest/typeahead.bundle.js"></script>
  <!-- JavaScript for homepage -->
- <script src="js/homepagejs.js" charset="utf-8"></script>
+ <script src="./js/homepagejs.js" charset="utf-8"></script>
 <!-- SnackBar Div -->
 <div id="snackbar">Invalid Tag!</div>
+
+
+
+
+
+
 </body>
 
 </html>

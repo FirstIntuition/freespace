@@ -1,3 +1,6 @@
+
+
+
 var selectedTags = {
   year: [],
   collegeYears: [],
@@ -94,6 +97,38 @@ $("#searchbutton").on("click",function(){
   $("#searchbutton").addClass("yearbtnpressed");
   setTimeout(function(){$("#searchbutton").removeClass("yearbtnpressed");},400);
 });
+
+
+//Displaying data dynamically
+let dataBody=document.getElementById('dataBody');
+let display=function(result){
+  console.log(result);
+  if(result.length){
+    dataBody.style.paddingLeft="9%";//to center the content
+    for(i=0;i<result.length;i++){
+      console.log(result[i]);
+      //image is temporary ,later a pdf would be added
+      dataBody.innerHTML+='<div class="container changeDiv" ><div class="row box" style="padding-left: 0rem; background-color: white;"><div class="col-md-5" style="margin:1rem;"><img class="img-responsive" src="./images/homepagebg.png" width="100%" style="border :2px solid blue;"></div><div class="col-md-5 boxInfo" style="margin:1rem;line-height: 135%;font-size: 100%;"><strong><span style="color:blue;">Test Subject:</span>'+ result[i].doc_subject+'<br></strong><strong><span style="color:blue">Test Exam:</span>'+result[i].doc_exam+'<br></strong><strong><span style="color:blue">Test Year:</span>'+result[i].doc_year+'-'+result[i].doc_date_asked+'<br></strong><strong><span style="color:blue">Topic: </span>'+result[i].topic+'</strong></div><div class="w-500"></div><button class="btn btn-md" id="buttonHover" type="button" name="button" style="position:relative;left:55%;top:50px;"><a href='+result[i].doc_link+' target="_blank" id="a" >Click Here</a></button></div></div>';
+    };
+  }
+  else{
+  console.log("no result");
+  dataBody.style.padding="0px";//to center the content
+  dataBody.innerHTML='<h2>File not found</h2>';
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 //AutoComplete
 $(document).ready(function(){
   // Defining the local dataset
@@ -191,44 +226,45 @@ $(document).ready(function(){
       }
   });
 
-  	//Making Form
-  // 	let mainForm=document.createElement("form");
+    //Making Form
+  //  let mainForm=document.createElement("form");
   //
-	// let formMake=function(name){
-	// 	console.log(name);
-	// 	selectedTags[name].forEach(function(item){
-	// 		console.log(item);
-	// 		let input=document.createElement("input");
-	// 		input.type="hidden";
-	// 		input.name=name;
-	// 		console.log(input.name);
-	// 		input.value=item;
-	// 		mainForm.append(input);
-	// 	});
-	// }
+  // let formMake=function(name){
+  //  console.log(name);
+  //  selectedTags[name].forEach(function(item){
+  //    console.log(item);
+  //    let input=document.createElement("input");
+  //    input.type="hidden";
+  //    input.name=name;
+  //    console.log(input.name);
+  //    input.value=item;
+  //    mainForm.append(input);
+  //  });
+  // }
   //
-	// const search=document.getElementById("searchbutton");
+  // const search=document.getElementById("searchbutton");
   //
-	// search.addEventListener("click",function(){
-	// 	console.log(selectedTags);
+  // search.addEventListener("click",function(){
+  //  console.log(selectedTags);
   //
-	// 	//setting action to search for the form with POST request
-	// 	mainForm.action="/search";
-	// 	mainForm.method="POST";
+  //  //setting action to search for the form with POST request
+  //  mainForm.action="/search";
+  //  mainForm.method="POST";
   //
-	// 	//calling function to append names of input in the form
-	// 	formMake("year");
-	// 	formMake("collegeYears");
-	// 	formMake("examType");
-	// 	formMake("subjects");
-	// 	formMake("topics");
+  //  //calling function to append names of input in the form
+  //  formMake("year");
+  //  formMake("collegeYears");
+  //  formMake("examType");
+  //  formMake("subjects");
+  //  formMake("topics");
   //
-	// 	document.getElementsByTagName('body')[0].appendChild(mainForm);
-	// 	mainForm.submit();
+  //  document.getElementsByTagName('body')[0].appendChild(mainForm);
+  //  mainForm.submit();
 
     $("#searchbutton").on("click",function(){
       var tagsjson= JSON.stringify(selectedTags);
       console.log(tagsjson);
+      dataBody.innerHTML="";
       var parsed=JSON.parse(tagsjson);
       $.ajax({
         type: "POST",
@@ -238,7 +274,10 @@ $(document).ready(function(){
         dataType:"text",
         success: function(result){
           console.log("passed!");
-          console.log(result);
+          //result=JSON.stringify(result);
+          result=JSON.parse(result);
+          display(result);
+          //console.log(result[0]["doc_exam"]);
         },
         error: function() {
           console.log("failed!");

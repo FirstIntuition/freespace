@@ -100,7 +100,7 @@ app.post("/search", function(req, res){
     query += ' where';
   }
   query += ' documents.doc_id=topics.doc_id group by documents.doc_id order by documents.doc_id desc';
-  res.send(query);
+  //res.send(query);
   var con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -114,6 +114,7 @@ app.post("/search", function(req, res){
     console.log(query);
     con.query(query, function (err, result, fields) {
     if (err) throw err;
+    res.json(result);
     console.log(result);
   });
   });
