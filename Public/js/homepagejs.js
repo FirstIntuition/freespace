@@ -9,6 +9,7 @@ var selectedTags = {
   topics: []
 };
 
+var height;
 function snackbarFunction(condition) {
   // Get the snackbar DIV
   var x = document.getElementById("snackbar");
@@ -18,6 +19,12 @@ function snackbarFunction(condition) {
 
   // After 3 seconds, remove the show class from DIV
   setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+}
+
+function scroll_to(div){
+	$('html, body').animate({
+		scrollTop: $("#dataBody").offset().top
+	},2000);
 }
 
 function getCat(tag) {
@@ -109,7 +116,10 @@ let display=function(result){
       console.log(result[i]);
       //image is temporary ,later a pdf would be added
       dataBody.innerHTML+='<div class="container changeDiv" ><div class="row box" style="padding-left: 0rem; background-color: white;"><div class="col-md-5" style="margin:1rem;"><img class="img-responsive" src="./images/homepagebg.png" width="100%" style="border :2px solid blue;"></div><div class="col-md-5 boxInfo" style="margin:1rem;line-height: 135%;font-size: 100%;"><strong><span style="color:blue;">Test Subject:</span>'+ result[i].doc_subject+'<br></strong><strong><span style="color:blue">Test Exam:</span>'+result[i].doc_exam+'<br></strong><strong><span style="color:blue">Test Year:</span>'+result[i].doc_year+'-'+result[i].doc_date_asked+'<br></strong><strong><span style="color:blue">Topic: </span>'+result[i].topic+'</strong></div><div class="w-500"></div><button class="btn btn-md" id="buttonHover" type="button" name="button" style="position:relative;left:55%;top:50px;"><a href='+result[i].doc_link+' target="_blank" id="a" >Click Here</a></button></div></div>';
+      
     };
+    height = $(document).height();
+    scroll_to();
   }
   else{
   console.log("no result");
@@ -119,18 +129,52 @@ let display=function(result){
 }
 
 
-
-
-
-
-
-
-
-
-
-
 //AutoComplete
 $(document).ready(function(){
+  $("#foo").slideDown();
+  $("#searchBar").focus( () => {
+    $("#foo").slideUp();
+    $("#tag.tag-final").slideDown();
+  });
+  $("#searchBar").focusout( () => {
+    $("#foo").slideDown();
+    $("#tag.tag-final").slideUp();
+  });
+  // $("body").click(() => {
+  //   $("#tag.tag-final").hide();
+  // });  
+  
+  // Search Bar transition
+  var searchbar = $(".homepagesearchbar-initial"); 
+  var logo = $("#logo");
+  var tagArea = $("#tag");
+  $(window).scroll(function () { 
+      var scroll = $(window).scrollTop(); 
+      // $("#tag").slideUp();
+      console.log(scroll);
+      if (scroll >= 255 && height > 1100) { 
+        // $("#foo").slideDown();
+                  $("#tag").hide();
+        searchbar.removeClass('homepagesearchbar-initial') 
+                  .addClass("homepagesearchbar-final"); 
+        logo.removeClass('logo-initial')
+                  .addClass('logo-final');
+        tagArea.removeClass('tag-initial')
+                  .addClass('tag-final');
+      } else { 
+        searchbar.removeClass("homepagesearchbar-final") 
+                  .addClass('homepagesearchbar-initial');
+        logo.removeClass('logo-final')
+                  .addClass('logo-initial');
+        tagArea.removeClass('tag-final')
+                  .addClass('tag-initial');
+        $("#tag").show();
+        // $("#foo").slideUp();
+      } 
+  }); 
+
+
+
   // Defining the local dataset
   var common = ["2020", "2019", "2018", "2017", "2016", "2015", "fe", "se", "te", "be", "ise", "ese", "mse"];
   var availableTop = ["Quantum Mechanics", "Solid State", "Green Chemistry", "C-Language", "Differential Calculus", "Fusion", "Integral Calculus", "Taylor Series"];
@@ -225,41 +269,6 @@ $(document).ready(function(){
         snackbarFunction("Invalid Tag");
       }
   });
-
-    //Making Form
-  //  let mainForm=document.createElement("form");
-  //
-  // let formMake=function(name){
-  //  console.log(name);
-  //  selectedTags[name].forEach(function(item){
-  //    console.log(item);
-  //    let input=document.createElement("input");
-  //    input.type="hidden";
-  //    input.name=name;
-  //    console.log(input.name);
-  //    input.value=item;
-  //    mainForm.append(input);
-  //  });
-  // }
-  //
-  // const search=document.getElementById("searchbutton");
-  //
-  // search.addEventListener("click",function(){
-  //  console.log(selectedTags);
-  //
-  //  //setting action to search for the form with POST request
-  //  mainForm.action="/search";
-  //  mainForm.method="POST";
-  //
-  //  //calling function to append names of input in the form
-  //  formMake("year");
-  //  formMake("collegeYears");
-  //  formMake("examType");
-  //  formMake("subjects");
-  //  formMake("topics");
-  //
-  //  document.getElementsByTagName('body')[0].appendChild(mainForm);
-  //  mainForm.submit();
 
     $("#searchbutton").on("click",function(){
       var tagsjson= JSON.stringify(selectedTags);
