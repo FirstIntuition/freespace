@@ -22,9 +22,9 @@ function snackbarFunction(condition) {
 }
 
 function scroll_to(div){
-	$('html, body').animate({
-		scrollTop: $("#dataBody").offset().top
-	},2000);
+  $('html, body').animate({
+    scrollTop: $("#dataBody").offset().top
+  },2000);
 }
 
 function getCat(tag) {
@@ -115,12 +115,15 @@ let display=function(result){
     for(i=0;i<result.length;i++){
       console.log(result[i]);
       //image is temporary ,later a pdf would be added
-      dataBody.innerHTML+='<div class="container changeDiv" ><div class="row box" style="padding-left: 0rem; background-color: white;"><div class="col-md-5" style="margin:1rem;"><img class="img-responsive" src="./images/homepagebg.png" width="100%" style="border :2px solid blue;"></div><div class="col-md-5 boxInfo" style="margin:1rem;line-height: 135%;font-size: 100%;"><strong><span style="color:blue;">Test Subject:</span>'+ result[i].doc_subject+'<br></strong><strong><span style="color:blue">Test Exam:</span>'+result[i].doc_exam+'<br></strong><strong><span style="color:blue">Test Year:</span>'+result[i].doc_year+'-'+result[i].doc_date_asked+'<br></strong><strong><span style="color:blue">Topic: </span>'+result[i].topic+'</strong></div><div class="w-500"></div><button class="btn btn-md" id="buttonHover" type="button" name="button" style="position:relative;left:55%;top:50px;"><a href='+result[i].doc_link+' target="_blank" id="a" >Click Here</a></button></div></div>';
+      let link=result[i].doc_link.substring(0,result[i].doc_link.length-16)+"/preview";
+      console.log(result[i].doc_link.substring(0,result[i].doc_link.length-16));
+
+      dataBody.innerHTML+='<div class="container changeDiv" ><div class="row box" style="padding-left: 0rem; background-color: white;"><div class="col-md-5" style="margin:1rem;"><iframe class="doc" src='+link+' width="100%" style="border :2px solid blue;"></iframe></div><div class="col-md-5 boxInfo" style="margin:1rem;line-height: 135%;font-size: 100%;"><strong><span style="color:blue;">Test Subject:</span>'+ result[i].doc_subject+'<br></strong><strong><span style="color:blue">Test Exam:</span>'+result[i].doc_exam+'<br></strong><strong><span style="color:blue">Test Year:</span>'+result[i].doc_year+'-'+result[i].doc_date_asked+'<br></strong><strong><span style="color:blue">Topic: </span>'+result[i].topic+'</strong></div><div class="w-500"></div><button class="btn btn-md" id="buttonHover" type="button" name="button" style="position:relative;left:55%;top:50px;"><a href='+result[i].doc_link+' target="_blank" id="a" >Click Here</a></button></div></div>';
       
     };
     height = $(document).height();
     scroll_to();
-  }
+  }//<iframe is="x-frame-bypass" src="https://example.org/"></iframe>
   else{
   console.log("no result");
   dataBody.style.padding="0px";//to center the content
@@ -133,8 +136,12 @@ let display=function(result){
 $(document).ready(function(){
   $("#foo").slideDown();
   $("#searchBar").focus( () => {
+
+    console.log(fixedDiv.className.split(" ")[1]);
+    if(fixedDiv.className.split(" ")[1]=="homepagesearchbar-final"){
     $("#foo").slideUp();
     $("#tag.tag-final").slideDown();
+  }
   });
   $("#searchBar").focusout( () => {
     $("#foo").slideDown();
@@ -145,6 +152,7 @@ $(document).ready(function(){
   // });  
   
   // Search Bar transition
+  var fixedDiv=document.getElementById("fixedDiv");
   var searchbar = $(".homepagesearchbar-initial"); 
   var logo = $("#logo");
   var tagArea = $("#tag");
